@@ -11,9 +11,3 @@ class Node:
     def __repr__(self):
         return str(self)
 
-    #     pos = nx.spring_layout(g, scale=3)
-    # nodes = list(g.nodes())
-    # for i in nodes:
-    #     nx.draw_networkx(g,pos, node_shape=i.shape, nodelist= [i], node_size=600)
-
-    # nx.draw_networkx_edges(g,pos)

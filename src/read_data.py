@@ -1,8 +1,9 @@
 from Node import Node
-from networkx import Graph
+import networkx as nx
+import matplotlib.pyplot as plt
 
 shapes = {'C': 'o', 'P': 'p', 'H': 'H', 'S': 's', 'T': '^'}
-G = Graph()
+G = nx.Graph()
 vertices = []
 
 
@@ -33,9 +34,21 @@ def create_graph():
     f.close()
 
 
+def draw_graph(g):
+    pos = nx.spring_layout(g, scale=3)
+    nodes = list(g.nodes())
+    for i in nodes:
+        nx.draw_networkx(g, pos, node_shape=i.shape,
+                         nodelist=[i], node_size=700)
+
+    nx.draw_networkx_edges(g, pos)
+    plt.show()
+
+
 def main():
     create_graph()
     print(G.nodes())
+    draw_graph(G)
 
 
 if __name__ == "__main__":
