@@ -1,6 +1,8 @@
 from Node import Node
+from Helper import backtrack
 import networkx as nx
 import matplotlib.pyplot as plt
+
 
 shapes = {'C': 'o', 'P': 'p', 'H': 'H', 'S': 's', 'T': '^'}
 G = nx.Graph()
@@ -9,8 +11,8 @@ vertices = []
 
 def create_nodes(f):
     try:
-        for shape in f.readline().split():
-            vertices.append(Node(shapes[shape.upper()]))
+        for (i, shape) in enumerate(f.readline().split()):
+            vertices.append(Node(i, shapes[shape.upper()]))
     except KeyError:
         print('invalid shape... please enter correct...')
 
@@ -37,17 +39,17 @@ def create_graph():
 def draw_graph(g):
     pos = nx.spring_layout(g, scale=3)
     nodes = list(g.nodes())
-    for i in nodes:
+    for i in nodes:       
         nx.draw_networkx(g, pos, node_shape=i.shape,
                          nodelist=[i], node_size=700)
-
     nx.draw_networkx_edges(g, pos)
     plt.show()
 
 
 def main():
     create_graph()
-    print(G.nodes())
+    draw_graph(G)
+    backtrack(graph=G, constraints = None)
     draw_graph(G)
 
 
