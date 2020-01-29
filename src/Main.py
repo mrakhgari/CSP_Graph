@@ -1,8 +1,13 @@
 from Node import Node
-from Helper import backtrack
+from Helper import backtracking_search, bt_mrv
 import networkx as nx
 import matplotlib.pyplot as plt
 
+from Circle import Circle
+from Hexagon import Hexagon
+from Pentagon import Pentagon
+from Square import Square
+from Triangle import Triangle
 
 shapes = {'C': 'o', 'P': 'p', 'H': 'H', 'S': 's', 'T': '^'}
 G = nx.Graph()
@@ -12,7 +17,16 @@ vertices = []
 def create_nodes(f):
     try:
         for (i, shape) in enumerate(f.readline().split()):
-            vertices.append(Node(i, shapes[shape.upper()]))
+            if shape.upper() == 'C':
+                vertices.append(Circle(i))
+            elif shape.upper() == 'P':
+                vertices.append(Pentagon(i))
+            elif shape.upper() == 'H':
+                vertices.append(Hexagon(i))
+            elif shape.upper() == 'S':
+                vertices.append(Square(i))
+            elif shape.upper() == 'T':
+                vertices.append(Triangle(i))
     except KeyError:
         print('invalid shape... please enter correct...')
 
@@ -26,7 +40,7 @@ def create_edges(f, E):
 def create_graph():
     # _ is number of vertices and e is number of edges
     try:
-        f = open("./../input.txt", 'r')
+        f = open("./input.txt", 'r')
     except OSError as e:
         print(e.strerror)
         exit(-1)
@@ -49,7 +63,7 @@ def draw_graph(g):
 def main():
     create_graph()
     draw_graph(G)
-    backtrack(graph=G, constraints = None)
+    backtracking_search(G)
     draw_graph(G)
 
 
